@@ -1212,29 +1212,6 @@ window.addEventListener('load', ()=>{
     panel.style.maxHeight = panel.scrollHeight + 'px';
   });
 });
-  const themeToggle = document.getElementById('themeToggle');
-const htmlElement = document.documentElement;
-
-// पुरानी थीम चेक करके स्विच को सेट करो
-if (localStorage.getItem('theme') === 'dark') {
-    htmlElement.setAttribute('data-theme', 'dark');
-} else {
-    htmlElement.setAttribute('data-theme', 'light');
-}
-
-// जब स्विच पर क्लिक हो तो थीम बदलो
-if (themeToggle) {
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = htmlElement.getAttribute('data-theme');
-        if (currentTheme === 'dark') {
-            htmlElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        } else {
-            htmlElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    });
-}
   
 </script>
 

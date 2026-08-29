@@ -3,21 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Assetify </title>
-<!-- Site Name Setup -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Assetify",
-  "url": "https://assetify.pages.dev/"
-}
-</script>
-
-<!-- Logo Setup -->
-<link rel="icon" type="image/png" href="logo.png">
-
-<meta name="google-site-verification" content="UzZ1c9d3eZuQD-KQq1R9GB0RQlwNOBjMwtVVU8O_vV0" />
+<title>Private Finance & Investment Calculators</title>
 <meta name="description" content="Luxury-grade SIP, EMI, Compound Interest, FIRE, Crypto ROI and Real Estate calculators. Instant, precise, client-side financial modelling.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -233,10 +219,374 @@ input[type=range]::-moz-range-thumb{
 <!-- HEADER -->
 <header class="sticky top-0 z-40 backdrop-blur-xl border-b" style="border-color:var(--border); background:color-mix(in srgb, var(--bg) 82%, transparent);">
   <div class="max-w-[1400px] mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-  <img src="logo.png" alt="Assetify Logo" class="w-9 h-9 rounded-xl object-cover">
-  <span class="font-display font-bold text-xl gold-emerald-text">Assetify</span>
+    <div class="flex items-center gap-3">
+      <!-- Your Custom Logo / Website Name Here -->
+    </div>
+
+    <div class="flex items-center gap-2 md:gap-3">
+      <div class="hidden sm:flex items-center gap-1 glass !rounded-full px-1 py-1">
+        <button class="curr-btn px-2.5 py-1 rounded-full text-xs font-mono font-bold" data-curr="USD">$ USD</button>
+        <button class="curr-btn px-2.5 py-1 rounded-full text-xs font-mono font-bold" data-curr="INR">₹ INR</button>
+        <button class="curr-btn px-2.5 py-1 rounded-full text-xs font-mono font-bold" data-curr="EUR">€ EUR</button>
+        <button class="curr-btn px-2.5 py-1 rounded-full text-xs font-mono font-bold" data-curr="GBP">£ GBP</button>
       </div>
+      <select id="currMobile" class="sm:hidden num-input !w-auto text-xs">
+        <option value="USD">$ USD</option>
+        <option value="INR">₹ INR</option>
+        <option value="EUR">€ EUR</option>
+        <option value="GBP">£ GBP</option>
+      </select>
+
+      <button id="themeToggle" class="switch" title="Toggle light / dark"><div class="switch-dot"></div></button>
+    </div>
+  </div>
+</header>
+
+<!-- TOP AD -->
+<div class="max-w-[1400px] mx-auto px-4 md:px-6 pt-5">
+  <div class="ad-slot h-[90px] md:h-[100px]">Advertisement · Leaderboard 728×90</div>
+</div>
+
+<!-- SHELL -->
+<div class="max-w-[1400px] mx-auto px-4 md:px-6 py-6 grid grid-cols-1 lg:grid-cols-[220px_1fr_260px] gap-6 items-start">
+
+  <!-- SIDEBAR -->
+  <aside class="lg:sticky lg:top-24">
+    <div class="flex lg:flex-col gap-2 overflow-x-auto scrollbar-none pb-2 lg:pb-0" id="navList">
+      <button class="nav-item active" data-target="sip"><span class="nav-dot"></span>SIP & Wealth Builder</button>
+      <button class="nav-item" data-target="emi"><span class="nav-dot"></span>EMI & Home Loan</button>
+      <button class="nav-item" data-target="ci"><span class="nav-dot"></span>Compound Interest</button>
+      <button class="nav-item" data-target="fire"><span class="nav-dot"></span>FIRE Calculator</button>
+      <button class="nav-item" data-target="crypto"><span class="nav-dot"></span>Crypto & Stock ROI</button>
+      <button class="nav-item" data-target="realestate"><span class="nav-dot"></span>Real Estate Yield</button>
+    </div>
+    <div class="hidden lg:block mt-6 glass p-4">
+      <div class="text-[11px] uppercase tracking-[0.12em] font-bold" style="color:var(--muted);">Currency preview</div>
+      <p class="text-xs mt-2 leading-relaxed" style="color:var(--muted);">Switching currency updates the symbol shown across every calculator. Enter figures directly in your chosen currency — no conversion is applied.</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="min-w-0">
+    <div id="calculator-sections">
+
+      <!-- ================= SIP ================= -->
+      <section class="calc-section active" id="sip">
+        <div class="mb-4">
+          <h1 class="font-display text-2xl md:text-3xl">SIP & Wealth Builder Calculator</h1>
+          <p class="text-sm mt-1" style="color:var(--muted);">Project the long-term value of disciplined monthly investing.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-5">
+          <!-- Inputs -->
+          <div class="glass p-5 space-y-6">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-sm font-semibold">Monthly Investment</label>
+                <input class="num-input" id="sip_amt_n" value="15000">
+              </div>
+              <input type="range" id="sip_amt_r" min="500" max="200000" step="500" value="15000">
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-sm font-semibold">Expected Annual Return</label>
+                <input class="num-input" id="sip_ret_n" value="12">
+              </div>
+              <input type="range" id="sip_ret_r" min="1" max="30" step="0.1" value="12">
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-sm font-semibold">Investment Tenure (years)</label>
+                <input class="num-input" id="sip_yrs_n" value="15">
+              </div>
+              <input type="range" id="sip_yrs_r" min="1" max="40" step="1" value="15">
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-sm font-semibold">Expected Inflation</label>
+                <input class="num-input" id="sip_inf_n" value="6">
+              </div>
+              <input type="range" id="sip_inf_r" min="0" max="15" step="0.1" value="6">
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-sm font-semibold">Adjust results for inflation</span>
+              <button class="switch" id="sip_inf_toggle"><div class="switch-dot"></div></button>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="glass p-5">
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="stat-card"><div class="stat-label">Invested Amount</div><div class="stat-value" id="sip_out_invested">—</div></div>
+              <div class="stat-card"><div class="stat-label">Wealth Gained</div><div class="stat-value" style="color:var(--emerald)" id="sip_out_gain">—</div></div>
+              <div class="stat-card col-span-2"><div class="stat-label" id="sip_out_fv_label">Future Value</div><div class="stat-value" style="color:var(--gold);font-size:1.7rem" id="sip_out_fv">—</div></div>
+            </div>
+            <div class="relative h-[240px]"><canvas id="sip_chart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="ad-slot h-[100px] my-6">Advertisement · In-Feed Banner</div>
+
+        <div class="glass p-5" id="sip_accordion">
+          <button class="acc-btn open" data-acc="sip1">Financial Formula Explanation <span class="acc-icon text-xl">+</span></button>
+          <div class="acc-panel" data-panel="sip1" style="max-height:400px;">
+            <div class="pb-4 text-sm leading-relaxed" style="color:var(--muted);">
+              <p class="mb-2">A Systematic Investment Plan (SIP) compounds a fixed contribution made at regular intervals. The future value is calculated as:</p>
+              <p class="font-mono text-xs p-3 rounded-lg" style="background:var(--panel);border:1px solid var(--border);">M = P × [ ( (1 + i)ⁿ − 1 ) / i ] × (1 + i)</p>
+              <p class="mt-2">Where <b>P</b> is the monthly investment, <b>i</b> is the monthly rate of return (annual rate ÷ 12), and <b>n</b> is the total number of monthly instalments. When inflation adjustment is enabled, the projected corpus is discounted back using the expected inflation rate to show its value in today's purchasing power.</p>
+            </div>
+          </div>
+          <button class="acc-btn" data-acc="sip2">How to Use This Calculator <span class="acc-icon text-xl">+</span></button>
+          <div class="acc-panel" data-panel="sip2">
+            <div class="pb-4 text-sm leading-relaxed" style="color:var(--muted);">
+              <p>Enter the amount you can invest every month, your realistically expected annual return, and how long you intend to stay invested. Toggle inflation adjustment to view what your corpus will actually be worth in today's terms, then use the chart to compare invested capital against projected wealth year by year.</p>
+            </div>
+          </div>
+          <button class="acc-btn" data-acc="sip3">Key Takeaways <span class="acc-icon text-xl">+</span></button>
+          <div class="acc-panel" data-panel="sip3">
+            <div class="pb-4 text-sm leading-relaxed" style="color:var(--muted);">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Starting early has a larger impact on final corpus than increasing the monthly amount later.</li>
+                <li>Returns are compounded monthly and are not guaranteed — treat the return assumption as an estimate.</li>
+                <li>Inflation-adjusted value shows real purchasing power, which is typically what matters for goal planning.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= EMI ================= -->
+      <section class="calc-section" id="emi">
+        <div class="mb-4">
+          <h1 class="font-display text-2xl md:text-3xl">Advanced EMI & Home Loan Calculator</h1>
+          <p class="text-sm mt-1" style="color:var(--muted);">Model monthly instalments and the true cost of borrowing.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-5">
+          <div class="glass p-5 space-y-6">
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Finance & Investment Calculators</title>
+<meta name="description" content="Luxury-grade SIP, EMI, Compound Interest, FIRE, Crypto ROI and Real Estate calculators. Instant, precise, client-side financial modelling.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+<style>
+:root{
+  --bg:#080c16;
+  --bg-alt:#0d1424;
+  --panel:rgba(255,255,255,0.035);
+  --panel-solid:#101a2e;
+  --border:rgba(255,255,255,0.09);
+  --text:#e9edf6;
+  --muted:#8996ac;
+  --emerald:#10b981;
+  --emerald-soft:rgba(16,185,129,0.14);
+  --gold:#d4af37;
+  --gold-soft:rgba(212,175,55,0.14);
+  --red:#f87171;
+  --shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+}
+[data-theme="light"]{
+  --bg:#f3f4f7;
+  --bg-alt:#eceef3;
+  --panel:rgba(255,255,255,0.65);
+  --panel-solid:#ffffff;
+  --border:rgba(15,23,42,0.1);
+  --text:#0f1626;
+  --muted:#57617a;
+  --emerald:#0d9668;
+  --emerald-soft:rgba(13,150,104,0.1);
+  --gold:#a9791f;
+  --gold-soft:rgba(169,121,31,0.12);
+  --red:#dc2626;
+  --shadow:0 20px 50px -25px rgba(15,23,42,0.25);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(16,185,129,0.08), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(212,175,55,0.06), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  transition:background .4s ease, color .4s ease;
+  min-height:100vh;
+}
+.font-display{font-family:'Fraunces',serif;}
+.font-mono{font-family:'JetBrains Mono',monospace;}
+
+::selection{background:var(--emerald);color:#031a12;}
+
+/* Glass panel */
+.glass{
+  background:var(--panel);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+
+/* Ticker */
+.ticker-wrap{
+  overflow:hidden;
+  white-space:nowrap;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(90deg, rgba(16,185,129,0.08), rgba(212,175,55,0.08));
+}
+.ticker-track{
+  display:inline-block;
+  padding-left:100%;
+  animation:ticker 42s linear infinite;
+}
+@keyframes ticker{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-100%);}
+}
+.ticker-item{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;padding:0 1.75rem;color:var(--muted);}
+.ticker-up{color:var(--emerald);}
+.ticker-down{color:var(--red);}
+
+/* Gradient text */
+.gold-emerald-text{
+  background:linear-gradient(120deg,var(--gold),var(--emerald) 65%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* Sidebar nav item */
+.nav-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.75rem .9rem;border-radius:14px;
+  color:var(--muted);font-weight:600;font-size:.85rem;
+  border:1px solid transparent;cursor:pointer;
+  transition:all .2s ease;
+  white-space:nowrap;
+}
+.nav-item:hover{background:var(--panel);color:var(--text);}
+.nav-item.active{
+  background:linear-gradient(120deg,var(--emerald-soft),var(--gold-soft));
+  border-color:var(--border);
+  color:var(--text);
+}
+.nav-item.active .nav-dot{background:var(--emerald);box-shadow:0 0 0 4px var(--emerald-soft);}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:.2s;}
+
+/* Range sliders */
+input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:5px;border-radius:99px;
+  background:linear-gradient(90deg,var(--emerald) var(--fill,50%), rgba(255,255,255,0.12) var(--fill,50%));
+  outline:none;
+}
+[data-theme="light"] input[type=range]{background:linear-gradient(90deg,var(--emerald) var(--fill,50%), rgba(15,23,42,0.12) var(--fill,50%));}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--emerald));
+  border:3px solid var(--bg);
+  box-shadow:0 2px 8px rgba(0,0,0,0.4);
+  cursor:pointer;margin-top:-1px;
+}
+input[type=range]::-moz-range-thumb{
+  width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--emerald));
+  border:3px solid var(--bg);cursor:pointer;
+}
+
+/* Number inputs */
+.num-input{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:.4rem .65rem;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;font-size:.85rem;
+  color:var(--text);
+  width:118px;text-align:right;
+}
+[data-theme="light"] .num-input{background:rgba(15,23,42,0.03);}
+.num-input:focus{outline:none;border-color:var(--emerald);}
+
+/* Summary card */
+.stat-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:1rem 1.1rem;
+}
+.stat-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;}
+.stat-value{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.35rem;margin-top:.25rem;}
+
+/* Ad slots */
+.ad-slot{
+  border:1px dashed var(--border);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,0.015) 0 10px, transparent 10px 20px);
+  font-weight:600;
+}
+
+/* Accordion */
+.acc-btn{
+  width:100%;display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 0;cursor:pointer;text-align:left;
+  border-top:1px solid var(--border);
+  font-weight:600;font-size:.92rem;
+}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.acc-icon{transition:transform .3s ease;color:var(--emerald);flex-shrink:0;}
+.acc-btn.open .acc-icon{transform:rotate(45deg);}
+
+/* Toggle */
+.switch{width:42px;height:24px;border-radius:99px;background:var(--panel);border:1px solid var(--border);position:relative;cursor:pointer;transition:.2s;}
+.switch-dot{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--muted);transition:.25s;}
+.switch.on{background:var(--emerald-soft);border-color:var(--emerald);}
+.switch.on .switch-dot{transform:translateX(18px);background:var(--emerald);}
+
+.calc-section{display:none;}
+.calc-section.active{display:block;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.brand-mark{
+  width:38px;height:38px;border-radius:11px;
+  background:linear-gradient(135deg,var(--gold),var(--emerald));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-weight:700;color:#04140d;font-size:1.15rem;
+  box-shadow:0 6px 18px -4px rgba(16,185,129,0.5);
+}
+
+.scrollbar-none::-webkit-scrollbar{display:none;}
+.scrollbar-none{-ms-overflow-style:none;scrollbar-width:none;}
+
+@media (max-width: 1024px){
+  .ad-sidebar{display:none;}
+}
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- TICKER (signature element) -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 backdrop-blur-xl border-b" style="border-color:var(--border); background:color-mix(in srgb, var(--bg) 82%, transparent);">
+  <div class="max-w-[1400px] mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <!-- Your Custom Logo / Website Name Here -->
     </div>
 
     <div class="flex items-center gap-2 md:gap-3">
@@ -1228,457 +1578,7 @@ window.addEventListener('load', ()=>{
     panel.style.maxHeight = panel.scrollHeight + 'px';
   });
 });
-      <div>
-      <div class="font-semibold mb-3 text-xs uppercase tracking-wider" style="color:var(--muted);">Disclaimer</div>
-      <p class="text-xs leading-relaxed" style="color:var(--muted);">Figures are illustrative estimates only and do not constitute financial, tax or investment advice. Currency symbols shown are for display preview and do not reflect live exchange rates. Consult a licensed financial advisor before making investment decisions.</p>
-    </div>
-  </div>
-  <div class="text-center text-xs py-4 border-t" style="border-color:var(--border); color:var(--muted);">© 2026. All calculations performed locally in your browser.</div>
-</footer>
-
-<script>
-/* ---------------- THEME ---------------- */
-const themeToggle = document.getElementById('themeToggle');
-themeToggle.addEventListener('click', ()=>{
-  const isDark = document.body.getAttribute('data-theme') !== 'light';
-  document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  themeToggle.classList.toggle('on', isDark);
-  refreshAllCharts();
-});
-
-/* ---------------- CURRENCY (symbol preview only) ---------------- */
-const CURRENCIES = { USD:'$', INR:'₹', EUR:'€', GBP:'£' };
-let currentSymbol = '$';
-document.querySelectorAll('.curr-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.curr-btn').forEach(b=>b.style.background='transparent');
-    btn.style.background='var(--emerald-soft)';
-    currentSymbol = CURRENCIES[btn.dataset.curr];
-    document.getElementById('currMobile').value = btn.dataset.curr;
-    recalcAll();
-  });
-});
-document.getElementById('currMobile').addEventListener('change', (e)=>{
-  currentSymbol = CURRENCIES[e.target.value];
-  document.querySelectorAll('.curr-btn').forEach(b=>{
-    b.style.background = b.dataset.curr === e.target.value ? 'var(--emerald-soft)' : 'transparent';
-  });
-  recalcAll();
-});
-document.querySelector('.curr-btn[data-curr="USD"]').style.background='var(--emerald-soft)';
-
-function fmt(n){
-  if(!isFinite(n)) n = 0;
-  const rounded = Math.round(n);
-  return currentSymbol + rounded.toLocaleString('en-US');
-}
-function fmtPct(n){ return (isFinite(n)? n.toFixed(2):'0.00') + '%'; }
-
-/* ---------------- NAV ---------------- */
-document.querySelectorAll('.nav-item[data-target]').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.nav-item[data-target]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.calc-section').forEach(s=>s.classList.remove('active'));
-    document.getElementById(btn.dataset.target).classList.add('active');
-    setTimeout(()=>refreshAllCharts(), 30);
-  });
-});
-
-/* ---------------- ACCORDIONS ---------------- */
-document.querySelectorAll('.acc-btn').forEach(btn=>{
-  const panel = document.querySelector('.acc-panel[data-panel="'+btn.dataset.acc+'"]');
-  btn.addEventListener('click', ()=>{
-    const isOpen = btn.classList.contains('open');
-    btn.classList.toggle('open', !isOpen);
-    panel.style.maxHeight = !isOpen ? panel.scrollHeight + 'px' : '0px';
-  });
-});
-
-/* ---------------- CONTROL BINDING HELPER ---------------- */
-function bind(sliderId, inputId, min, max, onChange){
-  const slider = document.getElementById(sliderId);
-  const input = document.getElementById(inputId);
-  function paintFill(){
-    const pct = ((parseFloat(slider.value)-slider.min)/(slider.max-slider.min))*100;
-    slider.style.setProperty('--fill', pct+'%');
-  }
-  slider.addEventListener('input', ()=>{ input.value = slider.value; paintFill(); onChange(); });
-  input.addEventListener('input', ()=>{
-    let v = parseFloat(input.value);
-    if(isNaN(v)) return;
-    v = Math.min(max, Math.max(min, v));
-    slider.value = v;
-    paintFill();
-    onChange();
-  });
-  paintFill();
-}
-
-/* ---------------- CHART THEME HELPERS ---------------- */
-function isLight(){ return document.body.getAttribute('data-theme')==='light'; }
-function gridColor(){ return isLight() ? 'rgba(15,23,42,0.08)' : 'rgba(255,255,255,0.06)'; }
-function textColor(){ return isLight() ? '#57617a' : '#8996ac'; }
-Chart.defaults.font.family = "'Inter',sans-serif";
-
-const charts = {};
-function baseLineOpts(){
-  return {
-    responsive:true, maintainAspectRatio:false,
-    interaction:{mode:'index', intersect:false},
-    plugins:{ legend:{ labels:{ color:textColor(), boxWidth:12, font:{size:11} } }, tooltip:{ backgroundColor:'#101a2e', titleColor:'#fff', bodyColor:'#e9edf6', borderColor:'rgba(255,255,255,0.1)', borderWidth:1 } },
-    scales:{
-      x:{ grid:{color:gridColor()}, ticks:{color:textColor(), font:{size:10}} },
-      y:{ grid:{color:gridColor()}, ticks:{color:textColor(), font:{size:10}, callback:(v)=>currentSymbol+Number(v).toLocaleString()} }
-    }
-  };
-}
-function baseDoughnutOpts(){
-  return {
-    responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{ position:'bottom', labels:{ color:textColor(), boxWidth:12, font:{size:11}, padding:14 } }, tooltip:{ backgroundColor:'#101a2e', titleColor:'#fff', bodyColor:'#e9edf6' } },
-    cutout:'62%'
-  };
-}
-function refreshAllCharts(){
-  Object.values(charts).forEach(c=>{
-    if(!c) return;
-    if(c.options.scales && c.options.scales.x && c.options.scales.y){
-      c.options.scales.x.grid.color = gridColor(); c.options.scales.x.ticks.color = textColor();
-      c.options.scales.y.grid.color = gridColor(); c.options.scales.y.ticks.color = textColor();
-    }
-    if(c.options.plugins.legend) c.options.plugins.legend.labels.color = textColor();
-    c.update();
-  });
-}
-
-/* ==================================================================
-   1. SIP CALCULATOR
-   ================================================================== */
-let sipInflationOn = false;
-document.getElementById('sip_inf_toggle').addEventListener('click', function(){
-  sipInflationOn = !sipInflationOn;
-  this.classList.toggle('on', sipInflationOn);
-  calcSIP();
-});
-bind('sip_amt_r','sip_amt_n',500,200000,calcSIP);
-bind('sip_ret_r','sip_ret_n',1,30,calcSIP);
-bind('sip_yrs_r','sip_yrs_n',1,40,calcSIP);
-bind('sip_inf_r','sip_inf_n',0,15,calcSIP);
-
-function calcSIP(){
-  const P = parseFloat(document.getElementById('sip_amt_n').value)||0;
-  const annualRate = parseFloat(document.getElementById('sip_ret_n').value)||0;
-  const years = parseInt(document.getElementById('sip_yrs_n').value)||0;
-  const inflation = parseFloat(document.getElementById('sip_inf_n').value)||0;
-  const i = annualRate/12/100;
-  const n = years*12;
-
-  const invested = P*n;
-  let fv;
-  if(i===0){ fv = P*n; } else { fv = P * ( (Math.pow(1+i,n)-1)/i ) * (1+i); }
-  const gain = fv - invested;
-  const realFv = fv / Math.pow(1+inflation/100, years);
-
-  document.getElementById('sip_out_invested').textContent = fmt(invested);
-  document.getElementById('sip_out_gain').textContent = fmt(gain);
-  document.getElementById('sip_out_fv_label').textContent = sipInflationOn ? 'Future Value (Inflation-Adjusted)' : 'Future Value';
-  document.getElementById('sip_out_fv').textContent = fmt(sipInflationOn ? realFv : fv);
-
-  const labels=[], investedSeries=[], valueSeries=[];
-  for(let y=1;y<=years;y++){
-    const m = y*12;
-    const inv = P*m;
-    let val = i===0 ? P*m : P * ( (Math.pow(1+i,m)-1)/i ) * (1+i);
-    if(sipInflationOn) val = val / Math.pow(1+inflation/100,y);
-    labels.push('Yr '+y); investedSeries.push(Math.round(inv)); valueSeries.push(Math.round(val));
-  }
-  const ctx = document.getElementById('sip_chart');
-  if(charts.sip){ charts.sip.data.labels=labels; charts.sip.data.datasets[0].data=investedSeries; charts.sip.data.datasets[1].data=valueSeries; charts.sip.update(); return; }
-  charts.sip = new Chart(ctx, {
-    type:'line',
-    data:{ labels, datasets:[
-      { label:'Invested', data:investedSeries, borderColor:'#8996ac', backgroundColor:'rgba(137,150,172,0.08)', fill:true, tension:.35, pointRadius:0 },
-      { label:'Wealth Value', data:valueSeries, borderColor:'#10b981', backgroundColor:'rgba(16,185,129,0.14)', fill:true, tension:.35, pointRadius:0, borderWidth:2.5 }
-    ]},
-    options: baseLineOpts()
-  });
-}
-
-/* ==================================================================
-   2. EMI CALCULATOR
-   ================================================================== */
-bind('emi_amt_r','emi_amt_n',100000,20000000,calcEMI);
-bind('emi_rate_r','emi_rate_n',1,20,calcEMI);
-bind('emi_yrs_r','emi_yrs_n',1,35,calcEMI);
-bind('emi_fee_r','emi_fee_n',0,5,calcEMI);
-
-function calcEMI(){
-  const P = parseFloat(document.getElementById('emi_amt_n').value)||0;
-  const annualRate = parseFloat(document.getElementById('emi_rate_n').value)||0;
-  const years = parseInt(document.getElementById('emi_yrs_n').value)||0;
-  const feePct = parseFloat(document.getElementById('emi_fee_n').value)||0;
-  const r = annualRate/12/100;
-  const n = years*12;
-
-  let emi;
-  if(r===0){ emi = n>0 ? P/n : 0; } else { emi = P*r*Math.pow(1+r,n) / (Math.pow(1+r,n)-1); }
-  const totalPayment = emi*n;
-  const totalInterest = totalPayment - P;
-  const fee = P*feePct/100;
-
-  document.getElementById('emi_out_emi').textContent = fmt(emi);
-  document.getElementById('emi_out_interest').textContent = fmt(totalInterest);
-  document.getElementById('emi_out_total').textContent = fmt(totalPayment);
-  document.getElementById('emi_out_fee').textContent = fmt(fee);
-
-  const ctx = document.getElementById('emi_chart');
-  const data = [Math.round(P), Math.round(totalInterest)];
-  if(charts.emi){ charts.emi.data.datasets[0].data=data; charts.emi.update(); return; }
-  charts.emi = new Chart(ctx, {
-    type:'doughnut',
-    data:{ labels:['Principal','Total Interest'], datasets:[{ data, backgroundColor:['#d4af37','#10b981'], borderWidth:0 }] },
-    options: baseDoughnutOpts()
-  });
-}
-
-/* ==================================================================
-   3. COMPOUND INTEREST CALCULATOR
-   ================================================================== */
-let ciFreq = 12;
-document.querySelectorAll('#ci_freq_group .nav-item').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('#ci_freq_group .nav-item').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    ciFreq = parseInt(btn.dataset.freq);
-    calcCI();
-  });
-});
-bind('ci_amt_r','ci_amt_n',1000,10000000,calcCI);
-bind('ci_rate_r','ci_rate_n',0.5,30,calcCI);
-bind('ci_yrs_r','ci_yrs_n',1,40,calcCI);
-
-function calcCI(){
-  const P = parseFloat(document.getElementById('ci_amt_n').value)||0;
-  const annualRate = parseFloat(document.getElementById('ci_rate_n').value)||0;
-  const years = parseInt(document.getElementById('ci_yrs_n').value)||0;
-  const r = annualRate/100;
-  const n = ciFreq;
-
-  const fv = P * Math.pow(1 + r/n, n*years);
-  const interest = fv - P;
-
-  document.getElementById('ci_out_principal').textContent = fmt(P);
-  document.getElementById('ci_out_interest').textContent = fmt(interest);
-  document.getElementById('ci_out_fv').textContent = fmt(fv);
-
-  const labels=[], series=[], principalLine=[];
-  for(let y=0;y<=years;y++){
-    labels.push('Yr '+y);
-    series.push(Math.round(P * Math.pow(1+r/n, n*y)));
-    principalLine.push(Math.round(P));
-  }
-  const ctx = document.getElementById('ci_chart');
-  if(charts.ci){ charts.ci.data.labels=labels; charts.ci.data.datasets[0].data=principalLine; charts.ci.data.datasets[1].data=series; charts.ci.update(); return; }
-  charts.ci = new Chart(ctx, {
-    type:'line',
-    data:{ labels, datasets:[
-      { label:'Principal', data:principalLine, borderColor:'#8996ac', borderDash:[5,4], pointRadius:0, fill:false },
-      { label:'Future Value', data:series, borderColor:'#d4af37', backgroundColor:'rgba(212,175,55,0.14)', fill:true, tension:.35, pointRadius:0, borderWidth:2.5 }
-    ]},
-    options: baseLineOpts()
-  });
-}
-
-/* ==================================================================
-   4. FIRE CALCULATOR
-   ================================================================== */
-bind('fire_age_r','fire_age_n',18,65,calcFIRE);
-bind('fire_exp_r','fire_exp_n',5000,1000000,calcFIRE);
-bind('fire_cur_r','fire_cur_n',0,20000000,calcFIRE);
-bind('fire_mon_r','fire_mon_n',0,500000,calcFIRE);
-bind('fire_ret_r','fire_ret_n',1,20,calcFIRE);
-bind('fire_swr_r','fire_swr_n',2,8,calcFIRE);
-
-function calcFIRE(){
-  const age = parseInt(document.getElementById('fire_age_n').value)||0;
-  const monthlyExp = parseFloat(document.getElementById('fire_exp_n').value)||0;
-  const current = parseFloat(document.getElementById('fire_cur_n').value)||0;
-  const monthlyInv = parseFloat(document.getElementById('fire_mon_n').value)||0;
-  const annualRet = parseFloat(document.getElementById('fire_ret_n').value)||0;
-  const swr = parseFloat(document.getElementById('fire_swr_n').value)||4;
-
-  const fireNumber = (monthlyExp*12) / (swr/100);
-  const i = annualRet/12/100;
-
-  let balance = current;
-  let months = 0;
-  const maxMonths = 70*12;
-  const series = [Math.round(balance)];
-  while(balance < fireNumber && months < maxMonths){
-    balance = balance*(1+i) + monthlyInv;
-    months++;
-    if(months % 12 === 0) series.push(Math.round(balance));
-  }
-  if(months % 12 !== 0) series.push(Math.round(balance));
-  const years = months/12;
-
-  document.getElementById('fire_out_target').textContent = fmt(fireNumber);
-  document.getElementById('fire_out_years').textContent = months>=maxMonths ? '50+ yrs' : years.toFixed(1)+' yrs';
-  document.getElementById('fire_out_age').textContent = months>=maxMonths ? '—' : Math.round(age+years)+' yrs';
-
-  const labels = series.map((_,idx)=> idx===0 ? 'Now' : 'Yr '+idx);
-  const targetLine = series.map(()=>Math.round(fireNumber));
-
-  const ctx = document.getElementById('fire_chart');
-  if(charts.fire){ charts.fire.data.labels=labels; charts.fire.data.datasets[0].data=series; charts.fire.data.datasets[1].data=targetLine; charts.fire.update(); return; }
-  charts.fire = new Chart(ctx, {
-    type:'line',
-    data:{ labels, datasets:[
-      { label:'Projected Net Worth', data:series, borderColor:'#10b981', backgroundColor:'rgba(16,185,129,0.14)', fill:true, tension:.3, pointRadius:0, borderWidth:2.5 },
-      { label:'FIRE Target', data:targetLine, borderColor:'#d4af37', borderDash:[6,4], pointRadius:0, fill:false }
-    ]},
-    options: baseLineOpts()
-  });
-}
-
-/* ==================================================================
-   5. CRYPTO / STOCK ROI CALCULATOR
-   ================================================================== */
-bind('cr_buy_r','cr_buy_n',0.01,100000,calcCrypto);
-bind('cr_sell_r','cr_sell_n',0.01,100000,calcCrypto);
-bind('cr_qty_r','cr_qty_n',0.01,1000,calcCrypto);
-bind('cr_fee_r','cr_fee_n',0,5,calcCrypto);
-bind('cr_tax_r','cr_tax_n',0,45,calcCrypto);
-
-function calcCrypto(){
-  const buy = parseFloat(document.getElementById('cr_buy_n').value)||0;
-  const sell = parseFloat(document.getElementById('cr_sell_n').value)||0;
-  const qty = parseFloat(document.getElementById('cr_qty_n').value)||0;
-  const feePct = parseFloat(document.getElementById('cr_fee_n').value)||0;
-  const taxPct = parseFloat(document.getElementById('cr_tax_n').value)||0;
-
-  const buyFee = buy*qty*feePct/100;
-  const sellFee = sell*qty*feePct/100;
-  const invested = buy*qty + buyFee;
-  const grossProceeds = sell*qty - sellFee;
-  const grossGain = grossProceeds - invested;
-  const tax = grossGain > 0 ? grossGain*taxPct/100 : 0;
-  const netProfit = grossGain - tax;
-  const roi = invested>0 ? (netProfit/invested)*100 : 0;
-
-  document.getElementById('cr_out_inv').textContent = fmt(invested);
-  document.getElementById('cr_out_proc').textContent = fmt(grossProceeds);
-  const profitEl = document.getElementById('cr_out_profit');
-  profitEl.textContent = fmt(netProfit);
-  profitEl.style.color = netProfit>=0 ? 'var(--emerald)' : 'var(--red)';
-  document.getElementById('cr_out_roi').textContent = fmtPct(roi);
-
-  const totalFees = buyFee+sellFee;
-  const dataVals = [Math.max(netProfit,0), totalFees, tax];
-  const ctx = document.getElementById('cr_chart');
-  if(charts.crypto){ charts.crypto.data.datasets[0].data=dataVals; charts.crypto.update(); return; }
-  charts.crypto = new Chart(ctx, {
-    type:'doughnut',
-    data:{ labels:['Net Profit','Trading Fees','Est. Tax'], datasets:[{ data:dataVals, backgroundColor:['#10b981','#8996ac','#f87171'], borderWidth:0 }] },
-    options: baseDoughnutOpts()
-  });
-}
-
-/* ==================================================================
-   6. REAL ESTATE CALCULATOR
-   ================================================================== */
-bind('re_price_r','re_price_n',200000,50000000,calcRE);
-bind('re_rent_r','re_rent_n',1000,500000,calcRE);
-bind('re_tax_r','re_tax_n',0,500000,calcRE);
-bind('re_maint_r','re_maint_n',0,500000,calcRE);
-bind('re_vac_r','re_vac_n',0,30,calcRE);
-bind('re_down_r','re_down_n',0,100,calcRE);
-bind('re_rate_r','re_rate_n',0,18,calcRE);
-bind('re_term_r','re_term_n',1,35,calcRE);
-
-function calcRE(){
-  const price = parseFloat(document.getElementById('re_price_n').value)||0;
-  const rent = parseFloat(document.getElementById('re_rent_n').value)||0;
-  const propTax = parseFloat(document.getElementById('re_tax_n').value)||0;
-  const maint = parseFloat(document.getElementById('re_maint_n').value)||0;
-  const vacancy = parseFloat(document.getElementById('re_vac_n').value)||0;
-  const downPct = parseFloat(document.getElementById('re_down_n').value)||0;
-  const rate = parseFloat(document.getElementById('re_rate_n').value)||0;
-  const term = parseInt(document.getElementById('re_term_n').value)||0;
-
-  const annualRentGross = rent*12;
-  const vacancyLoss = annualRentGross*vacancy/100;
-  const annualRentEffective = annualRentGross - vacancyLoss;
-  const netAnnualIncome = annualRentEffective - propTax - maint;
-
-  const grossYield = price>0 ? (annualRentGross/price)*100 : 0;
-  const netYield = price>0 ? (netAnnualIncome/price)*100 : 0;
-
-  const loanAmt = price*(1-downPct/100);
-  const r = rate/12/100;
-  const n = term*12;
-  let emi = 0;
-  if(loanAmt>0 && n>0){
-    emi = r===0 ? loanAmt/n : loanAmt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-  }
-  const netMonthlyIncome = netAnnualIncome/12;
-  const cashFlow = netMonthlyIncome - emi;
-
-  document.getElementById('re_out_gross').textContent = fmtPct(grossYield);
-  document.getElementById('re_out_net').textContent = fmtPct(netYield);
-  const cfEl = document.getElementById('re_out_cashflow');
-  cfEl.textContent = fmt(cashFlow);
-  cfEl.style.color = cashFlow>=0 ? 'var(--emerald)' : 'var(--red)';
-
-  const dataVals = [Math.round(annualRentEffective), Math.round(propTax), Math.round(maint), Math.round(emi*12)];
-  const ctx = document.getElementById('re_chart');
-  if(charts.re){ charts.re.data.datasets[0].data=dataVals; charts.re.update(); return; }
-  charts.re = new Chart(ctx, {
-    type:'doughnut',
-    data:{ labels:['Effective Rental Income','Property Tax','Maintenance & Insurance','Annual Mortgage Payment'], datasets:[{ data:dataVals, backgroundColor:['#10b981','#f87171','#8996ac','#d4af37'], borderWidth:0 }] },
-    options: baseDoughnutOpts()
-  });
-}
-/* ---------------- RECALC ALL (on currency change) ---------------- */
-function recalcAll(){ calcSIP(); calcEMI(); calcCI(); calcFIRE(); calcCrypto(); calcRE(); }
-
-/* ---------------- TICKER CONTENT ---------------- */
-const tickerData = [
-  {l:'S&P 500', v:'5,847.21', up:true, c:'+0.42%'},
-  {l:'NASDAQ', v:'18,532.10', up:true, c:'+0.61%'},
-  {l:'NIFTY 50', v:'24,981.35', up:false, c:'-0.18%'},
-  {l:'FTSE 100', v:'8,214.60', up:true, c:'+0.27%'},
-  {l:'GOLD', v:'$2,412/oz', up:true, c:'+0.55%'},
-  {l:'BTC', v:'$67,842', up:true, c:'+2.14%'},
-  {l:'ETH', v:'$3,412', up:false, c:'-0.72%'},
-  {l:'10Y TREASURY', v:'4.28%', up:false, c:'-0.03%'},
-  {l:'EUR/USD', v:'1.0842', up:true, c:'+0.11%'},
-  {l:'USD/INR', v:'83.41', up:false, c:'-0.05%'},
-];
-function buildTicker(){
-  const track = document.getElementById('tickerTrack');
-  let html='';
-  for(let rep=0; rep<3; rep++){
-    tickerData.forEach(d=>{
-      html += `<span class="ticker-item">${d.l} <b class="${d.up?'ticker-up':'ticker-down'}">${d.v} ${d.up?'▲':'▼'} ${d.c}</b></span>`;
-    });
-  }
-  html += `<span class="ticker-item" style="font-style:italic;">Market data shown is illustrative and for design purposes only, and is not live.</span>`;
-  track.innerHTML = html;
-}
-buildTicker();
-
-/* ---------------- INIT ---------------- */
-calcSIP(); calcEMI(); calcCI(); calcFIRE(); calcCrypto(); calcRE();
-
-/* Auto-expand first accordion panels to correct height after layout */
-window.addEventListener('load', ()=>{
-  document.querySelectorAll('.acc-btn.open').forEach(btn=>{
-    const panel = document.querySelector('.acc-panel[data-panel="'+btn.dataset.acc+'"]');
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-  });
-});
 </script>
 </body>
 </html>
+       

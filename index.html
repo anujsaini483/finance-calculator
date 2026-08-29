@@ -1212,6 +1212,30 @@ window.addEventListener('load', ()=>{
     panel.style.maxHeight = panel.scrollHeight + 'px';
   });
 });
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    if (!themeToggle) return;
+
+    // चेक करें कि पहले से कौन सी थीम सेव है
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    htmlElement.setAttribute('data-theme', savedTheme);
+    
+    // अगर चेकबॉक्स है तो उसकी स्टेट सेट करें
+    if (themeToggle.type === 'checkbox') {
+        themeToggle.checked = (savedTheme === 'dark');
+    }
+
+    // क्लिक या चेंज होने पर थीम बदलें
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+        
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+});
   
 </script>
 

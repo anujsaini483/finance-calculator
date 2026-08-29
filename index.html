@@ -1204,7 +1204,17 @@ buildTicker();
 
 /* ---------------- INIT ---------------- */
 calcSIP(); calcEMI(); calcCI(); calcFIRE(); calcCrypto(); calcRE();
- <!-- ABOUT SECTION -->
+
+/* Auto-expand first accordion panels to correct height after layout */
+window.addEventListener('load', ()=>{
+  document.querySelectorAll('.acc-btn.open').forEach(btn=>{
+    const panel = document.querySelector('.acc-panel[data-panel="'+btn.dataset.acc+'"]');
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+  });
+});
+</script>
+
+   <!-- ABOUT SECTION -->
 <section class="max-w-4xl mx-auto my-16 p-8 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 shadow-xl">
     <h2 class="text-2xl font-bold text-white mb-4">About Assetify</h2>
     <p class="mb-4 leading-relaxed">
@@ -1216,14 +1226,5 @@ calcSIP(); calcEMI(); calcCI(); calcFIRE(); calcCrypto(); calcRE();
         Assetify is founded, designed, and developed by <strong>Anuj Saini</strong>. As an independent developer, the goal of this platform is to provide fast, reliable, and easy-to-use financial tools for everyone.
     </p>
 </section>
-/* Auto-expand first accordion panels to correct height after layout */
-window.addEventListener('load', ()=>{
-  document.querySelectorAll('.acc-btn.open').forEach(btn=>{
-    const panel = document.querySelector('.acc-panel[data-panel="'+btn.dataset.acc+'"]');
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-  });
-});
-</script>
-
 </body>
 </html>

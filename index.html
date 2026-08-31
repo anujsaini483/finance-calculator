@@ -1,130 +1,242 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assetify - Professional Financial Calculators & Hub</title>
-    
-    <!-- SEO & Meta Tags -->
-    <meta name="description" content="Assetify provides free professional financial calculators for SIP, EMI, Home loan, compounding interest, FIRE calculator, Crypto ROI, and Real Estate yield.">
-    <meta name="keywords" content="Assetify, SIP calculator, EMI calculator, Compounding interest, FIRE calculator, Crypto ROI, Real Estate yield">
-    <link rel="icon" type="image/png" href="./logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assetify - Professional Financial Calculators & Hub</title>
+<meta name="description" content="Assetify provides free professional financial calculators for SIP, EMI, Home loan, compounding interest, FIRE calculator, Crypto ROI, and Real Estate yield.">
 
-    <!-- Google AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8166765540029179" crossorigin="anonymous"></script>
+<!-- Google AdSense Script -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8166765540029179" crossorigin="anonymous"></script>
 
-    <!-- Google Schema / JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Assetify",
-        "url": "https://assetify.pages.dev",
-        "description": "Professional financial calculators and guides."
-    }
-    </script>
+<!-- Google Schema / JSON-LD -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Assetify",
+    "url": "https://assetify.pages.dev",
+    "description": "Professional financial calculators and guides."
+}
+</script>
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+<style>
+:root{
+  --bg:#080c16;
+  --bg-alt:#0d1424;
+  --panel:rgba(255,255,255,0.035);
+  --panel-solid:#101a2e;
+  --border:rgba(255,255,255,0.09);
+  --text:#e9edf6;
+  --muted:#8996ac;
+  --emerald:#10b981;
+  --emerald-soft:rgba(16,185,129,0.14);
+  --gold:#d4af37;
+  --gold-soft:rgba(212,175,55,0.14);
+  --red:#f87171;
+  --shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+}
+[data-theme="light"]{
+  --bg:#f3f4f7;
+  --bg-alt:#eceef3;
+  --panel:rgba(255,255,255,0.65);
+  --panel-solid:#ffffff;
+  --border:rgba(15,23,42,0.1);
+  --text:#0f1626;
+  --muted:#57617a;
+  --emerald:#0d9668;
+  --emerald-soft:rgba(13,150,104,0.1);
+  --gold:#a9791f;
+  --gold-soft:rgba(169,121,31,0.12);
+  --red:#dc2626;
+  --shadow:0 20px 50px -25px rgba(15,23,42,0.25);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(16,185,129,0.08), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(212,175,55,0.06), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  transition:background .4s ease, color .4s ease;
+  min-height:100vh;
+}
+.font-display{font-family:'Fraunces',serif;}
+.font-mono{font-family:'JetBrains Mono',monospace;}
+
+::selection{background:var(--emerald);color:#031a12;}
+
+/* Glass panel */
+.glass{
+  background:var(--panel);
+  border:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+
+/* Ticker */
+.ticker-wrap{
+  overflow:hidden;
+  white-space:nowrap;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(90deg, rgba(16,185,129,0.08), rgba(212,175,55,0.08));
+}
+.ticker-track{
+  display:inline-block;
+  padding-left:100%;
+  animation:ticker 42s linear infinite;
+}
+@keyframes ticker{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-100%);}
+}
+.ticker-item{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;padding:0 1.75rem;color:var(--muted);}
+.ticker-up{color:var(--emerald);}
+.ticker-down{color:var(--red);}
+
+/* Gradient text */
+.gold-emerald-text{
+  background:linear-gradient(120deg,var(--gold),var(--emerald) 65%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* Sidebar nav item */
+.nav-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.75rem .9rem;border-radius:14px;
+  color:var(--muted);font-weight:600;font-size:.85rem;
+  border:1px solid transparent;cursor:pointer;
+  transition:all .2s ease;
+  white-space:nowrap;
+}
+.nav-item:hover{background:var(--panel);color:var(--text);}
+.nav-item.active{
+  background:linear-gradient(120deg,var(--emerald-soft),var(--gold-soft));
+  border-color:var(--border);
+  color:var(--text);
+}
+.nav-item.active .nav-dot{background:var(--emerald);box-shadow:0 0 0 4px var(--emerald-soft);}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:.2s;}
+
+/* Range sliders */
+input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:5px;border-radius:99px;
+  background:linear-gradient(90deg,var(--emerald) var(--fill,50%), rgba(255,255,255,0.12) var(--fill,50%));
+  outline:none;
+}
+[data-theme="light"] input[type=range]{background:linear-gradient(90deg,var(--emerald) var(--fill,50%), rgba(15,23,42,0.12) var(--fill,50%));}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--emerald));
+  border:3px solid var(--bg);
+  box-shadow:0 2px 8px rgba(0,0,0,0.4);
+  cursor:pointer;margin-top:-1px;
+}
+input[type=range]::-moz-range-thumb{
+  width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--emerald));
+  border:3px solid var(--bg);cursor:pointer;
+}
+
+/* Number inputs */
+.num-input{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:.4rem .65rem;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;font-size:.85rem;
+  color:var(--text);
+  width:118px;text-align:right;
+}
+[data-theme="light"] .num-input{background:rgba(15,23,42,0.03);}
+.num-input:focus{outline:none;border-color:var(--emerald);}
+
+/* Summary card */
+.stat-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:1rem 1.1rem;
+}
+.stat-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;}
+.stat-value{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.35rem;margin-top:.25rem;}
+
+/* Ad slots */
+.ad-slot{
+  border:1px dashed var(--border);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,0.015) 0 10px, transparent 10px 20px);
+  font-weight:600;
+}
+
+/* Accordion */
+.acc-btn{
+  width:100%;display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 0;cursor:pointer;text-align:left;
+  border-top:1px solid var(--border);
+  font-weight:600;font-size:.92rem;
+}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.acc-icon{transition:transform .3s ease;color:var(--emerald);flex-shrink:0;}
+.acc-btn.open .acc-icon{transform:rotate(45deg);}
+
+/* Toggle */
+.switch{width:42px;height:24px;border-radius:99px;background:var(--panel);border:1px solid var(--border);position:relative;cursor:pointer;transition:.2s;}
+.switch-dot{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--muted);transition:.25s;}
+.switch.on{background:var(--emerald-soft);border-color:var(--emerald);}
+.switch.on .switch-dot{transform:translateX(18px);background:var(--emerald);}
+
+.calc-section{display:none;}
+.calc-section.active{display:block;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.brand-mark{
+  width:38px;height:38px;border-radius:11px;
+  background:linear-gradient(135deg,var(--gold),var(--emerald));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-weight:700;color:#04140d;font-size:1.15rem;
+  box-shadow:0 6px 18px -4px rgba(16,185,129,0.5);
+}
+
+.scrollbar-none::-webkit-scrollbar{display:none;}
+.scrollbar-none{-ms-overflow-style:none;scrollbar-width:none;}
+
+@media (max-width: 1024px){
+  .ad-sidebar{display:none;}
+}
+</style>
 </head>
-<body class="bg-[#f8f9fa] text-slate-900 min-h-screen flex flex-col justify-between font-sans">
+<body data-theme="dark">
 
-    <!-- Top Navigation Bar -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <span class="text-2xl font-bold tracking-tight text-slate-900">Assetify<span class="text-emerald-600">.</span></span>
-            </div>
-            <nav class="flex space-x-6 text-sm font-medium">
-                <a href="index.html" class="text-slate-900 bg-slate-100 px-3.5 py-2 rounded-lg transition">Dashboard</a>
-                <a href="articles.html" class="text-slate-600 hover:text-emerald-600 px-3.5 py-2 rounded-lg transition">Guides</a>
-            </nav>
-        </div>
+<!-- TICKER (signature element) -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
     </header>
 
     <!-- Main Content: Direct Calculator & Graph View (No Cards) -->
     <main class="max-w-7xl mx-auto px-6 py-10 flex-grow w-full">
 
         <div class="mb-6">
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">SIP & Wealth Calculator</h1>
-            <p class="text-slate-500 text-sm mt-1">अपने निवेश की राशि दर्ज करें और तुरंत ग्राफ तथा रिटर्न देखें</p>
-        </div>
-
-        <!-- Direct Calculator & Graph Grid Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Left Side: Direct Input Form -->
-            <div class="lg:col-span-1 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Monthly Investment (₹)</label>
-                    <input type="number" id="investment" value="5000" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600 font-medium">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Expected Return Rate (% p.a.)</label>
-                    <input type="number" id="rate" value="12" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600 font-medium">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Time Period (Years)</label>
-                    <input type="number" id="years" value="10" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600 font-medium">
-                </div>
-            </div>
-
-            <!-- Right Side: Direct Calculation & Graph Preview Area -->
-            <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-4">Investment Breakdown</h3>
-                    <div class="grid grid-cols-3 gap-4 mb-6">
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                            <span class="text-xs text-slate-500 block">Invested Amount</span>
-                            <span class="text-lg font-bold text-slate-900 mt-1 block">₹6,00,000</span>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                            <span class="text-xs text-slate-500 block">Est. Returns</span>
-                            <span class="text-lg font-bold text-emerald-600 mt-1 block">₹5,61,304</span>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                            <span class="text-xs text-slate-500 block">Total Value</span>
-                            <span class="text-lg font-bold text-slate-900 mt-1 block">₹11,61,304</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Direct Graph Visual Area -->
-                <div class="w-full h-48 bg-slate-50 rounded-xl border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-sm">
-                    [ Direct Growth Graph View / Chart Container ]
-                </div>
-            </div>
-
-        </div>
-     
-<!-- HEADER -->
-<header class="sticky top-0 z-40 backdrop-blur-xl border-b" style="border-color:var(--border); background:color-mix(in srgb, var(--bg) 82%, transparent);">
-  <div class="max-w-[1400px] mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
-    <div class="flex items-center gap-3">
-      <!-- Your Custom Logo / Website Name Here -->
-         <a href="articles.html" class="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition shadow-sm">Guides</a>
-         
-    </div>
-
-    <div class="flex items-center gap-2 md:gap-3">
-      <div class="hidden sm:flex items-center gap-1 glass !rounded-full px-1 py-1">
-        <button class="curr-btn px-2.5 py-1 rounded-full text-xs font-mono font-bold" data-curr="USD">$ USD</button>
-        <button class="curr-btn px-2.5 py-1 rounded-full text-xs font-mono font-bold" data-curr="INR">₹ INR</button>
-        <button class="curr-btn px-2.5 py-1 rounded-full text-xs font-mono font-bold" data-curr="EUR">€ EUR</button>
-        <button class="curr-btn px-2.5 py-1 rounded-full text-xs font-mono font-bold" data-curr="GBP">£ GBP</button>
-      </div>
-      <select id="currMobile" class="sm:hidden num-input !w-auto text-xs">
-        <option value="USD">$ USD</option>
-        <option value="INR">₹ INR</option>
-        <option value="EUR">€ EUR</option>
-        <option value="GBP">£ GBP</option>
-      </select>
-
-      <button id="themeToggle" class="switch" title="Toggle light / dark"><div class="switch-dot"></div></button>
-    </div>
-  </div>
+  
 </header>
 
 <!-- TOP AD -->
